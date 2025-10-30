@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  nginx-proxy:
+    image: nginx:latest
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d
+      - ./ssl:/etc/ssl/private
+      - ./html:/var/www/html
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    networks:
+      - proxy-net
+    restart: always
+
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - ./ssl:/etc/letsencrypt
+      - ./html:/var/www/html
+    entrypoint: /bin/sh
+    networks:
+      - proxy-net
+
+networks:
+  proxy-net:
+    external: true

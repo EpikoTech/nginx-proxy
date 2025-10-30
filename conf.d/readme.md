@@ -1,0 +1,1 @@
+# Carpeta donde se guarda los configuraciones de cada dominio
