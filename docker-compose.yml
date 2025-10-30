@@ -1,4 +1,4 @@
-version: "3.8"
+#version: "3.8"
 
 services:
   nginx-proxy:
@@ -14,7 +14,7 @@ services:
       - /var/run/docker.sock:/tmp/docker.sock:ro
     networks:
       - proxy-net
-    restart: always
+    #restart: always
 
   certbot:
     image: certbot/certbot
